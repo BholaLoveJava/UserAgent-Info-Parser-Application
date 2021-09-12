@@ -30,4 +30,10 @@ public class BrowserInfoController {
 		BrowserDeviceOSInfoResponse browserInfoResponse = browserInfoDetailsService.getBrowserInfoDetailsV2(userAgentRequest);
 		return new ResponseEntity<>(browserInfoResponse, HttpStatus.OK);
 	}
+	
+	@PostMapping("/useragent/v3/info")
+	public ResponseEntity<BrowserDeviceOSInfoResponse> getBrowserInfoDetailsV3(@RequestBody UserAgentRequest userAgentRequest){
+		BrowserDeviceOSInfoResponse browserInfoResponse = browserInfoDetailsService.getBrowserInfoDetailsV3(userAgentRequest);
+		return new ResponseEntity<>(browserInfoResponse, HttpStatus.OK);
+	}
 }

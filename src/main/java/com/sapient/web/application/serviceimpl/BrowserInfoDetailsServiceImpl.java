@@ -18,6 +18,7 @@ import net.sf.uadetector.ReadableUserAgent;
 import net.sf.uadetector.UserAgentStringParser;
 import net.sf.uadetector.VersionNumber;
 import net.sf.uadetector.service.UADetectorServiceFactory;
+import nl.basjes.parse.useragent.UserAgentAnalyzer;
 
 
 @Service
@@ -119,5 +120,56 @@ public class BrowserInfoDetailsServiceImpl implements BrowserInfoDetailsService 
 		browserInfoDetails.setDeviceType(device.getCategory().toString());
 		return browserInfoDetails;
 	}
+	
+public BrowserDeviceOSInfoResponse getBrowserInfoDetailsV3(UserAgentRequest userAgentRequest) {
+		
+		return getBrowserInfoDetailsV3Data(userAgentRequest);
+	}
+	
+	public BrowserDeviceOSInfoResponse getBrowserInfoDetailsV3Data(UserAgentRequest userAgentRequest) {
+		UserAgentAnalyzer userAgentAnalyzer = UserAgentAnalyzer
+	                                          .newBuilder()
+	                                          .hideMatcherLoadStats()
+	                                          .withCache(10000)
+	                                          .build();
+		nl.basjes.parse.useragent.UserAgent userAgentData = userAgentAnalyzer.parse(userAgentRequest.getUserAgent());
+		LOGGER.info("{}", userAgentData.toYamlTestCase(true));
+
+        // The requested fields
+		LOGGER.info ("Device Class :: "+userAgentData.getValue("DeviceClass")); // Phone
+		LOGGER.info("AgentNameVersionMajor :: "+userAgentData.getValue("AgentNameVersionMajor")); // Chrome 53
+
+        // The fields that are internally needed to build the requested fields
+		LOGGER.info("AgentName :: "+userAgentData.getValue("AgentName")); // Chrome
+		LOGGER.info("AgentVersion :: "+userAgentData.getValue("AgentVersion")); // 53.0.2785.124
+		LOGGER.info("AgentVersionMajor :: "+userAgentData.getValue("AgentVersionMajor")); // 53
+
+        // The rest must be the default value (i.e. no rules fired)
+		LOGGER.info("DeviceName :: "+userAgentData.getValue("DeviceName")); // Nexus 6
+		LOGGER.info("DeviceBrand :: "+userAgentData.getValue("DeviceBrand")); // Google
+		LOGGER.info("OperatingSystemClass :: "+userAgentData.getValue("OperatingSystemClass")); // Mobile
+		LOGGER.info("OperatingSystemName :: "+userAgentData.getValue("OperatingSystemName")); // Android
+		LOGGER.info("OperatingSystemVersion :: "+userAgentData.getValue("OperatingSystemVersion")); // 7.0
+		LOGGER.info("OperatingSystemNameVersion :: "+userAgentData.getValue("OperatingSystemNameVersion" )); // Android 7.0
+		LOGGER.info("OperatingSystemVersionBuild :: "+userAgentData.getValue("OperatingSystemVersionBuild")); // NBD90Z
+		LOGGER.info("LayoutEngineClass :: "+userAgentData.getValue("LayoutEngineClass")); // Browser
+		LOGGER.info("LayoutEngineName :: "+userAgentData.getValue("LayoutEngineName" )); // Blink
+		LOGGER.info("LayoutEngineVersion :: "+userAgentData.getValue("LayoutEngineVersion")); // 53.0
+		LOGGER.info("LayoutEngineVersionMajor :: "+userAgentData.getValue("LayoutEngineVersionMajor")); // 53
+		LOGGER.info("LayoutEngineNameVersion :: "+userAgentData.getValue("LayoutEngineNameVersion")); // Blink 53.0
+		LOGGER.info("LayoutEngineNameVersionMajor :: "+userAgentData.getValue("LayoutEngineNameVersionMajor")); // Blink 53
+		LOGGER.info("AgentClass :: "+userAgentData.getValue("AgentClass")); // Browser
+		LOGGER.info("AgentNameVersion :: "+userAgentData.getValue("AgentNameVersion")); // Chrome 53.0.2785.124
+		BrowserDeviceOSInfoResponse browserInfoResponse = new BrowserDeviceOSInfoResponse();
+		browserInfoResponse.setOs(userAgentData.getValue("OperatingSystemName"));
+		browserInfoResponse.setOsVersion(userAgentData.getValue("OperatingSystemVersion"));
+		browserInfoResponse.setBrowser(userAgentData.getValue("AgentName"));
+		browserInfoResponse.setBrowserVersion(userAgentData.getValue("AgentVersion"));
+		browserInfoResponse .setDevice(userAgentData.getValue("DeviceClass"));
+		browserInfoResponse.setDeviceType(userAgentData.getValue("DeviceName"));
+		
+		return  browserInfoResponse;
+	}
+
 
 }
