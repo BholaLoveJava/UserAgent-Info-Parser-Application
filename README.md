@@ -38,3 +38,29 @@ Output JSON Response
     "device": "Personal computer",
     "deviceType": "PERSONAL_COMPUTER"
 }
+
+
+## UserAgentAnalyzer Output Data
+DeviceClass                           : 'Desktop'                  #       20
+      DeviceName                            : 'Apple Macintosh'          #       20
+      DeviceBrand                           : 'Apple'                    #       20
+      DeviceCpu                             : 'Intel'                    #      105
+      DeviceCpuBits                         : '32'                       #      105
+      OperatingSystemClass                  : 'Desktop'                  #       20
+      OperatingSystemName                   : 'Mac OS X'                 #       20
+      OperatingSystemVersion                : '10.10.5'                  #       20
+      OperatingSystemVersionMajor           : '10'                       #       20
+      OperatingSystemNameVersion            : 'Mac OS X 10.10.5'         #       20
+      OperatingSystemNameVersionMajor       : 'Mac OS X 10'              #       20
+      LayoutEngineClass                     : 'Browser'                  #      999
+      LayoutEngineName                      : 'Blink'                    #      999
+      LayoutEngineVersion                   : '48.0'                     #      999
+      LayoutEngineVersionMajor              : '48'                       #      999
+      LayoutEngineNameVersion               : 'Blink 48.0'               #      999
+      LayoutEngineNameVersionMajor          : 'Blink 48'                 #      999
+      AgentClass                            : 'Browser'                  #     2014
+      AgentName                             : 'Chrome'                   #     2014
+      AgentVersion                          : '48.0.2564.116'            #     2014
+      AgentVersionMajor                     : '48'                       #     2014
+      AgentNameVersion                      : 'Chrome 48.0.2564.116'     #     2014
+      AgentNameVersionMajor                 : 'Chrome 48'                #     2014
