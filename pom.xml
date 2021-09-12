@@ -46,6 +46,14 @@
 			<artifactId>uadetector-resources</artifactId>
 			<version>2014.10</version>
 		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/nl.basjes.parse.useragent/yauaa-example-java -->
+		<dependency>
+			<groupId>nl.basjes.parse.useragent</groupId>
+			<artifactId>yauaa-example-java</artifactId>
+			<version>5.16</version>
+			<type>pom</type>
+		</dependency>
 	</dependencies>
 
 	<build>
